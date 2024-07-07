@@ -1,0 +1,35 @@
+# Make Ubuntu Debug pod and deploy it into the mesh
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ubuntu
+  labels:
+    istio.io/dataplane-mode: ambient
+    istio.io/use-waypoint: ubuntu-waypoint
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: ubuntu-waypoint
+spec:
+  gatewayClassName: istio-waypoint
+  listeners:
+  - name: mesh
+    port: 15008
+    protocol: HBONE
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  labels:
+    app: ubuntu
+spec:
+  containers:
+  - image: ubuntu
+    command:
+      - "sleep"
+      - "604800"
+    imagePullPolicy: IfNotPresent
+    name: ubuntu
+  restartPolicy: Always

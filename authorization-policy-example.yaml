@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: httpbin
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["ubuntu"]
+    to:
+    - operation:
+        methods: ["GET"]

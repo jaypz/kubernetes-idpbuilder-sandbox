@@ -5,6 +5,7 @@ metadata:
   labels:
     istio.io/dataplane-mode: ambient
     istio.io/use-waypoint: httpbin-waypoint
+    shared-gateway-access: "true"
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
@@ -72,3 +73,4 @@ spec:
           value: /tmp
         ports:
         - containerPort: 8080
+
